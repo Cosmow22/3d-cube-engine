@@ -26,14 +26,17 @@ while running:
         elif event.type == pygame.MOUSEMOTION:
             if dragging:
                 x, y = event.rel
-                if x > 0: # → Souris vers la droite
-                    cube.b += MOUSE_ROTATION_STEP
-                elif x < 0: # ← Souris vers la gauche
+                # Rotation horizontale → axe Y
+                if y > 0: # → Souris vers la droite
                     cube.b -= MOUSE_ROTATION_STEP
-                if y > 0: # ↓ Souris vers le bas
-                    cube.a -= MOUSE_ROTATION_STEP   
-                elif y < 0: # ↑ Souris vers le haut
-                    cube.a += MOUSE_ROTATION_STEP        
+                elif y < 0: # ← Souris vers la gauche
+                    cube.b += MOUSE_ROTATION_STEP
+                
+                # Rotation verticale → axe X
+                if  x> 0: # ↓ Souris vers le bas
+                    cube.a -= MOUSE_ROTATION_STEP
+                elif x < 0: # ↑ Souris vers le haut
+                    cube.a += MOUSE_ROTATION_STEP    
                 cube.compute()
         elif event.type == pygame.MOUSEWHEEL:
             if event.y == 1:
@@ -42,13 +45,14 @@ while running:
                 SCALE -= CUBE_SIZE_STEP
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-               cube.b -= MOUSE_ROTATION_STEP
+               cube.a -= MOUSE_ROTATION_STEP
             if event.key == pygame.K_LEFT:
-                cube.b += MOUSE_ROTATION_STEP
-            if event.key == pygame.K_DOWN:
                 cube.a += MOUSE_ROTATION_STEP
+            if event.key == pygame.K_DOWN:
+                cube.b -= MOUSE_ROTATION_STEP
             if event.key == pygame.K_UP:
-                cube.a -= MOUSE_ROTATION_STEP
+                cube.b += MOUSE_ROTATION_STEP
+
             cube.compute()
 
     screen.fill("grey0") 

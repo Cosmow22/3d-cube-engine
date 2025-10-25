@@ -1,27 +1,27 @@
-from math import cos, sin, pi
+from math import cos, sin
 from settings import *
+
 
 class Cube:
     x = [ 1, 1, -1, -1, 1, 1, -1, -1]
     y = [1, 1, 1, 1,- 1,- 1,- 1,- 1]
     z = [-1, 1, 1, -1, -1, 1, 1, -1]
 
-    def __init__(self, a=1, b=2, c=3, factor=0.5):
-        # 0 → 6.28 (2 pi)
-        self.a = a # rotation autour de X
-        self.b = b # rotation autour  de Y
-        self.c = c # rotation autour de Z 
-
-        self.factor = factor
+    def __init__(self, a=0, b=0, c=1):
+        self.a = a # angle de rotation autour de X
+        self.b = b # angele de rotation autour  de Y
+        self.c = c # angle rotation autour de Z 
 
         self.points = None
         self.faces = None
+    
+    ###-------------------------###
 
     def x_x(self):
-        return cos(self.c)*cos(self.b)
+        return cos(self.c)*cos(self.b) # composante x nouvel axe X après rotation
 
     def x_y(self):
-        return cos(self.c)*sin(self.b)*sin(self.a) - sin(self.c)*cos(self.a)
+        return cos(self.c)*sin(self.b)*sin(self.a) - sin(self.c)*cos(self.a) # composante y nouvel axe X après rotation
     
     def x_z(self):
         return cos(self.c)*sin(self.b)*cos(self.a) + sin(self.c)*sin(self.a)
@@ -44,8 +44,11 @@ class Cube:
     def z_z(self):
         return cos(self.b) * cos(self.a)
     
+    ###-------------------------###
 
     def get_projected_points(self):
+        """ Calcule les coordonnées X Y Z de chaque points après rotation """
+
         # Calcul des coefficients
         xx = self.x_x()
         xy = self.x_y()
