@@ -18,9 +18,18 @@ v'=R(q)v
 
 où R(q) est la matrice de rotation équivalente dérivée du quaternion 
 
-$$ 
-R(q) = \begin{bmatrix} 1-2(y^2 + z^2) & 2(xy - zw) & 2(xz + yw) \\ 2(xy + zw) & 1-2(x^2 + z^2) & 2(yz - xw) \\ 2(xz - yw) & 2(yz + xw) & 1 - 2(x^2 + y^2) \end{bmatrix}
 $$
+\begin{equation*}
+ R ( q ) =
+\begin{pmatrix}
+1-2(y^2 + z^2) & 2(xy - zw) & 2(xz + yw)\\
+2(xy + zw) & 1-2(x^2 + z^2) & 2(yz - xw) \\
+2(xz - yw) & 2(yz + xw) & 1 - 2(x^2 + y^2)\\
+\end{pmatrix}
+\end{equation*}
+$$
+
+avec *w* l'angle de rotation, et *x y z* les coordonnées 3d de l'axe
 
 ## Demo
 
