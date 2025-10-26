@@ -19,7 +19,7 @@ $$
 - *v'* représente le vecteur après rotation
 - *q* est votre quaternion unitaire de rotation
 - *v* correspond au vecteur original à faire tourner
-- $$ q^{-1} $$ désigne le conjugué du quaternion q
+- $ q^{-1} $ désigne le conjugué du quaternion q
 
 où R(q) est la matrice de rotation équivalente dérivée du quaternion 
 
