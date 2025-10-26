@@ -50,6 +50,6 @@ Pour redimensionner le cube, défilez la mollete de la souris.
 
 ***
 
-Voir la version 1: [cube.py](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py))
+Voir la version 1: [cube.py](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py)
 
-Merci à @[Ge0] pour son aide sur la v2
+Merci à [@Ge0](https://github.com/Ge0) pour son aide sur la v2
