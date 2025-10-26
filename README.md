@@ -19,7 +19,7 @@ $$
 - *v'* représente le vecteur après rotation
 - *q* est votre quaternion unitaire de rotation
 - *v* correspond au vecteur original à faire tourner
-- $ q^{-1} $ désigne le conjugué du quaternion q
+- $q^{-1}$ désigne le conjugué du quaternion q
 
 où R(q) est la matrice de rotation équivalente dérivée du quaternion 
 
@@ -50,6 +50,6 @@ Pour redimensionner le cube, défilez la mollete de la souris.
 
 ***
 
-Voir la version 1: [cube.py]([https://github.com/Cosmow22/3d-cube-engine/tree/1cdf3bcdde26174029ca023df321337f17115e5b](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py))
+Voir la version 1: [cube.py](https://github.com/Cosmow22/3d-cube-engine/tree/1cdf3bcdde26174029ca023df321337f17115e5b](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py)
 
 Merci à @Ge0 pour son aide sur la v2
