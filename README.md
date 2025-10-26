@@ -37,9 +37,9 @@ $$
 avec *w* l'angle de rotation, et *x y z* les coordonnées 3d de l'axe
 
 ## Demo
-
-<img src="https://github.com/user-attachments/assets/ce02ca56-7fe9-429b-be86-669c0ffcd6fe" width="200">
-
+<a href="https://github.com/user-attachments/assets/ce02ca56-7fe9-429b-be86-669c0ffcd6fe" target="_blank">
+ <img width="200" alt="Capture d’écran 2025-10-26 132447" src="https://github.com/user-attachments/assets/f45b4a2d-6eed-4320-b99d-8c53e0a35c66" />
+</a>
 ## Commandes
 
 Pour faire tourner le cube, maintenez le clic gauche et bougez la souris.
@@ -52,4 +52,4 @@ Pour redimensionner le cube, défilez la mollete de la souris.
 
 Voir la version 1: [cube.py](https://github.com/Cosmow22/3d-cube-engine/tree/1cdf3bcdde26174029ca023df321337f17115e5b](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py)
 
-Merci à @Ge0 pour son aide sur la v2
+Merci à @[Ge0] pour son aide sur la v2
