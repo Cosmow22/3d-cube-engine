@@ -1,4 +1,41 @@
+# 3d cube engine
+## Fonctionnement
+La rotation repose sur l'utilisations des quaternions.
+
+Un quaternion est un nombre complexe dans un espace à 4 dimensions qui se réprésente ainsi :
+$$ q = w + xi + yj = zk $$
+
+formule quaternionique :
+$$  v' = qvq^{-1} 
+\Leftrightarrow 
+v'=R(q)v
+ $$
+ 
+- *v'* représente le vecteur après rotation
+- *q* est votre quaternion unitaire de rotation
+- v** correspond au vecteur original à faire tourner
+- $$ q^{-1} $$ désigne le conjugué du quaternion q
+
+où R(q) est la matrice de rotation équivalente dérivée du quaternion 
+
+$$ 
+R(q) = \begin{bmatrix} 1-2(y^2 + z^2) & 2(xy - zw) & 2(xz + yw) \\ 2(xy + zw) & 1-2(x^2 + z^2) & 2(yz - xw) \\ 2(xz - yw) & 2(yz + xw) & 1 - 2(x^2 + y^2) \end{bmatrix}
+$$
+
+## Demo
+
 https://github.com/user-attachments/assets/ce02ca56-7fe9-429b-be86-669c0ffcd6fe
 
+## Commandes
 
-See [version 1](https://github.com/Cosmow22/3d-cube-engine/tree/1cdf3bcdde26174029ca023df321337f17115e5b)
+Pour faire tourner le cube, maintenez le clic gauche et bougez la souris.
+
+Vous pouvez aussi utiliser les touches directionnelles.
+
+Pour redimensionner le cube, défilez la mollete de la souris.
+
+***
+
+Voir la version 1: [cube.py]([https://github.com/Cosmow22/3d-cube-engine/tree/1cdf3bcdde26174029ca023df321337f17115e5b](https://github.com/Cosmow22/3d-cube-engine/blob/1cdf3bcdde26174029ca023df321337f17115e5b/cube.py))
+
+Merci à @Ge0 pour son aide sur la v2
