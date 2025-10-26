@@ -3,8 +3,6 @@ from cube import Cube
 from settings import *
 
 cube = Cube()
-cube.compute()
-
 screen_coordinates = lambda X, Y: (X*SCALE + OFFSET_X, Y*SCALE + OFFSET_Y)
 
 pygame.init()
@@ -17,55 +15,41 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1 : 
-                dragging = True
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:
-                dragging = False
-        elif event.type == pygame.MOUSEMOTION:
-            if dragging:
-                x, y = event.rel
-                # Rotation horizontale → axe Y
-                if y > 0: # → Souris vers la droite
-                    cube.b -= MOUSE_ROTATION_STEP
-                elif y < 0: # ← Souris vers la gauche
-                    cube.b += MOUSE_ROTATION_STEP
-                
-                # Rotation verticale → axe X
-                if  x> 0: # ↓ Souris vers le bas
-                    cube.a -= MOUSE_ROTATION_STEP
-                elif x < 0: # ↑ Souris vers le haut
-                    cube.a += MOUSE_ROTATION_STEP    
-                cube.compute()
+
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            dragging = True
+
+        elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            dragging = False
+
+        elif event.type == pygame.MOUSEMOTION and dragging:
+            dx, dy = event.rel
+            # Rotation horizontale → autour de Y
+            cube.rotate((0, 1, 0), dx * MOUSE_ROTATION_STEP)
+            # Rotation verticale → autour de X
+            cube.rotate((1, 0, 0), (-dy) * MOUSE_ROTATION_STEP)
+
         elif event.type == pygame.MOUSEWHEEL:
-            if event.y == 1:
-                SCALE += CUBE_SIZE_STEP
-            else:
-                SCALE -= CUBE_SIZE_STEP
+            SCALE += CUBE_SIZE_STEP if event.y > 0 else -CUBE_SIZE_STEP
+
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-               cube.a -= MOUSE_ROTATION_STEP
-            if event.key == pygame.K_LEFT:
-                cube.a += MOUSE_ROTATION_STEP
-            if event.key == pygame.K_DOWN:
-                cube.b -= MOUSE_ROTATION_STEP
-            if event.key == pygame.K_UP:
-                cube.b += MOUSE_ROTATION_STEP
+                cube.rotate((0, 1, 0), MOUSE_ROTATION_STEP)
+            elif event.key == pygame.K_LEFT:
+                cube.rotate((0, 1, 0), -MOUSE_ROTATION_STEP)
+            elif event.key == pygame.K_DOWN:
+                cube.rotate((1, 0, 0), MOUSE_ROTATION_STEP)
+            elif event.key == pygame.K_UP:
+                cube.rotate((1, 0, 0), -MOUSE_ROTATION_STEP)
 
-            cube.compute()
+    screen.fill("grey0")
 
-    screen.fill("grey0") 
-    
-    # draw faces
-    for face, color, _ in cube.faces:
-        face_points = []
-        for (X, Y, Z) in face:
-            face_points.append(screen_coordinates(X,Y))
-        pygame.draw.polygon(screen, color, face_points)
-            
+    # Dessiner les faces dans l’ordre
+    for pts, color, _ in cube.faces:
+        poly = [screen_coordinates(x, y) for (x, y, z) in pts]
+        pygame.draw.polygon(screen, color, poly)
+
     pygame.display.flip()
-
     clock.tick(60)
 
 pygame.quit()

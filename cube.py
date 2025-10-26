@@ -1,94 +1,70 @@
-from math import cos, sin
+import numpy as np
 from settings import *
 
+def quat_multiply(q1, q2):
+    """Produit de deux quaternions"""
+    w1, x1, y1, z1 = q1
+    w2, x2, y2, z2 = q2
+    return np.array([
+        w1*w2 - x1*x2 - y1*y2 - z1*z2,
+        w1*x2 + x1*w2 + y1*z2 - z1*y2,
+        w1*y2 - x1*z2 + y1*w2 + z1*x2,
+        w1*z2 + x1*y2 - y1*x2 + z1*w2
+    ])
+
+def quat_normalize(q):
+    return q / np.linalg.norm(q)
+
+def quat_from_axis_angle(axis, angle):
+    """Crée un quaternion à partir d’un axe et d’un angle"""
+    axis = np.array(axis)
+    axis = axis / np.linalg.norm(axis)
+    s = np.sin(angle / 2)
+    return np.array([np.cos(angle / 2), axis[0]*s, axis[1]*s, axis[2]*s])
+
+def quat_to_matrix(q):
+    """Convertit un quaternion en matrice 3x3"""
+    w, x, y, z = q
+    return np.array([
+        [1 - 2*(y**2 + z**2),  2*(x*y - z*w),      2*(x*z + y*w)],
+        [2*(x*y + z*w),        1 - 2*(x**2 + z**2), 2*(y*z - x*w)],
+        [2*(x*z - y*w),        2*(y*z + x*w),      1 - 2*(x**2 + y**2)]
+    ])
 
 class Cube:
-    x = [ 1, 1, -1, -1, 1, 1, -1, -1]
-    y = [1, 1, 1, 1,- 1,- 1,- 1,- 1]
-    z = [-1, 1, 1, -1, -1, 1, 1, -1]
-
-    def __init__(self, a=0, b=0, c=1):
-        self.a = a # angle de rotation autour de X
-        self.b = b # angele de rotation autour  de Y
-        self.c = c # angle rotation autour de Z 
-
+    def __init__(self):
+        # Coordonnées de base du cube
+        self.vertices = np.array([
+            [ 1,  1, -1],
+            [ 1,  1,  1],
+            [-1,  1,  1],
+            [-1,  1, -1],
+            [ 1, -1, -1],
+            [ 1, -1,  1],
+            [-1, -1,  1],
+            [-1, -1, -1],
+        ])
+        self.q = np.array([1, 0, 0, 0])  # quaternion initial (aucune rotation)
         self.points = None
         self.faces = None
-    
-    ###-------------------------###
+        self.compute()
 
-    def x_x(self):
-        return cos(self.c)*cos(self.b) # composante x nouvel axe X après rotation
+    def rotate(self, axis, angle):
+        """Applique une rotation autour d’un axe (x,y,z)"""
+        q_rot = quat_from_axis_angle(axis, angle)
+        self.q = quat_multiply(q_rot, self.q)
+        self.q = quat_normalize(self.q)
+        self.compute()
 
-    def x_y(self):
-        return cos(self.c)*sin(self.b)*sin(self.a) - sin(self.c)*cos(self.a) # composante y nouvel axe X après rotation
-    
-    def x_z(self):
-        return cos(self.c)*sin(self.b)*cos(self.a) + sin(self.c)*sin(self.a)
-    
-    def y_x(self):
-        return sin(self.c)*cos(self.b)
-    
-    def y_y(self):
-        return sin(self.c)*sin(self.b)*sin(self.a) + cos(self.c)*cos(self.a)
-    
-    def y_z(self):
-        return sin(self.c)*sin(self.b)*cos(self.a) - cos(self.c)*sin(self.a)
-    
-    def z_x(self):
-        return -sin(self.b)
-    
-    def z_y(self):
-        return cos(self.b) * sin(self.a)
-    
-    def z_z(self):
-        return cos(self.b) * cos(self.a)
-    
-    ###-------------------------###
+    def compute(self):
+        """Calcule les points projetés après rotation"""
+        R = quat_to_matrix(self.q)
+        self.points = np.dot(self.vertices, R.T)
 
-    def get_projected_points(self):
-        """ Calcule les coordonnées X Y Z de chaque points après rotation """
-
-        # Calcul des coefficients
-        xx = self.x_x()
-        xy = self.x_y()
-        xz = self.x_z()
-        
-        yx = self.y_x()
-        yy = self.y_y()
-        yz = self.y_z()
-        
-        zx = self.z_x()
-        zy = self.z_y()
-        zz = self.z_z()
-
-        # Projection de chaque point
-        projected_points = []
-        for i in range(len(self.x)):
-            X = self.x[i] * xx + self.y[i] * xy + self.z[i] * xz
-            Y = self.x[i] * yx + self.y[i] * yy + self.z[i] * yz
-            Z = self.x[i] * zx + self.y[i] * zy + self.z[i] * zz
-            projected_points.append((X, Y, Z))
-        return projected_points
-
-    def get_ordered_faces(self):
-        """
-        Calcule l'ordre d'affichage des faces du cube.
-        Les faces sont triées par profondeur moyenne (Z) décroissante,
-        donc la face la plus proche s'affichera en dernier.
-        """       
+        # Calcul des faces triées par profondeur
         faces = []
         for i, face in enumerate(FACES):
-            z_sum = 0
-            face_points = []
-            for point in face:
-                face_points.append(self.points[point])
-                z_sum += self.points[point][2]  # Z est à l'index 2
-            avg_depth = z_sum / len(face)
-            faces.append([face_points, COLORS[i], avg_depth])
-        faces.sort(key=lambda x: x[2], reverse=True)
-        return faces
-    
-    def compute(self):
-        self.points = self.get_projected_points()
-        self.faces = self.get_ordered_faces()
+            pts = [self.points[idx] for idx in face]
+            avg_z = np.mean([p[2] for p in pts])
+            faces.append((pts, COLORS[i], avg_z))
+        self.faces = sorted(faces, key=lambda f: f[2])
