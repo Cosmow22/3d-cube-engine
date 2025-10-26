@@ -38,9 +38,7 @@ avec *w* l'angle de rotation, et *x y z* les coordonnées 3d de l'axe
 
 ## Demo
 
-<a href="https://github.com/user-attachments/assets/ce02ca56-7fe9-429b-be86-669c0ffcd6fe">
- <img width="200" alt="Capture d’écran 2025-10-26 132447" src="https://github.com/user-attachments/assets/f45b4a2d-6eed-4320-b99d-8c53e0a35c66" />
-</a>
+![demo](https://github.com/user-attachments/assets/6f516e0c-4d08-4061-8420-63a3771d44a4)
 
 ## Commandes
 
