@@ -3,11 +3,13 @@
 La rotation repose sur l'utilisations des quaternions.
 
 Un quaternion est un nombre complexe dans un espace à 4 dimensions qui se réprésente ainsi :
+
 $$ 
 q = w + xi + yj = zk 
 $$
 
 formule quaternionique :
+
 $$  
 v' = qvq^{-1} 
 \Leftrightarrow 
