@@ -2,7 +2,7 @@
 ## Fonctionnement
 La rotation repose sur l'utilisations des quaternions.
 
-Un quaternion est un nombre complexe appartenant à l'ensemble des hypercomplexes noté {\displaystyle \mathbb {H} } :
+Un quaternion est un nombre complexe appartenant à l'ensemble des hypercomplexes noté ${\displaystyle \mathbb {H} }$ :
 
 $$ 
 q = w + xi + yj = zk 
