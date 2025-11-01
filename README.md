@@ -22,9 +22,9 @@ L'ordre dans leqel on tourne le cube importe. Si je tourne en avant puis sur la 
 En effet, La multipilcation des quaterions est non **commutative**.
 
 |  ↓*→  | **1** | **i** | **j** | **k** |
-|-------|---------------|---------------|
+|-------|-------|-------|-------|-------|
 | **1** |   1   |   i   |   j   |   k   |
-| **i** |   i   |  -1   |   k   |  -j   | 
+| **i** |   i   |  -1   |   k   |  -j   |
 | **j** |   j   |  -k   |  -1   |   i   |
 | **k** |   k   |   j   |  -i   |  -1   |
 
